@@ -1,7 +1,7 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from .views import home, createpost
+from .views import home, createpost, postpreference
 
 
 class ViewTests(TestCase):
@@ -22,4 +22,8 @@ class ViewTests(TestCase):
         response = home(request)
         self.assertEqual(response.status_code, 200)
 
-
+    def test_postfreference(self):
+        request = self.request_factory.post(reverse(postpreference))
+        request.user = self.user
+        response = postpreference(request, 1, 1)
+        self.assertEqual(response.status_code, 200)
